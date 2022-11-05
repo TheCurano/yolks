@@ -1,8 +1,5 @@
 name: build java
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: "0 0 * * 1"
   push:
     branches:
       - master
@@ -34,8 +31,8 @@ jobs:
       - uses: docker/login-action@v2
         with:
           registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.REGISTRY_TOKEN }}
+          username: TheCurano
+          password: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/build-push-action@v3
         with:
           context: ./java
@@ -43,4 +40,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/parkervcp/yolks:java_${{ matrix.tag }}
+            ghcr.io/thecurano/yolks:java_${{ matrix.tag }}
